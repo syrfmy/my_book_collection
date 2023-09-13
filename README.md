@@ -63,6 +63,7 @@ B. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django bese
 
 C. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
     Kita menggunakan virtual environment untuk karena beberapa alasan berikut:
+    
     1. Isolasi Proyek: Virtual environment memungkinkan Anda membuat lingkungan isolasi yang independen untuk setiap proyek. 
     Ini berarti setiap proyek dapat memiliki dependensi Python (misalnya, paket atau library) yang berbeda tanpa interferensi dengan proyek lain. Ini
     menghindari masalah konflik versi dan memastikan proyek-proyek Anda tetap bersih dan terpisah.
