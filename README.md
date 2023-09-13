@@ -63,46 +63,68 @@ B. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django bese
 
 C. Jelaskan mengapa kita menggunakan virtual environment? Apakah kita tetap dapat membuat aplikasi web berbasis Django tanpa menggunakan virtual environment?
     Kita menggunakan virtual environment untuk karena beberapa alasan berikut:
-    1. Isolasi Proyek: Virtual environment memungkinkan Anda membuat lingkungan isolasi yang independen untuk setiap proyek. Ini berarti setiap proyek dapat memiliki dependensi Python (misalnya, paket atau library) yang berbeda tanpa interferensi dengan proyek lain. Ini menghindari masalah konflik versi dan memastikan proyek-proyek Anda tetap bersih dan terpisah.
-    2. Manajemen Dependensi: Dengan venv, Anda dapat dengan mudah mengelola dan menginstal dependensi yang dibutuhkan untuk proyek Anda. Anda dapat membuat file requirements.txt yang berisi daftar semua paket yang dibutuhkan, yang memungkinkan Anda atau anggota tim Anda untuk menginstalnya dengan mudah di lingkungan virtual yang sama.
+    1. Isolasi Proyek: Virtual environment memungkinkan Anda membuat lingkungan isolasi yang independen untuk setiap proyek. 
+    Ini berarti setiap proyek dapat memiliki dependensi Python (misalnya, paket atau library) yang berbeda tanpa interferensi dengan proyek lain. Ini
+    menghindari masalah konflik versi dan memastikan proyek-proyek Anda tetap bersih dan terpisah.
+
+    2. Manajemen Dependensi: Dengan venv, Anda dapat dengan mudah mengelola dan menginstal dependensi yang dibutuhkan untuk proyek Anda. 
+    Anda dapat membuat file requirements.txt yang berisi daftar semua paket yang dibutuhkan, 
+    yang memungkinkan Anda atau anggota tim Anda untuk menginstalnya dengan mudah di lingkungan virtual yang sama.
 
 D. Jelaskan apakah itu MVC, MVT, MVVM dan perbedaan dari ketiganya.
     MVC (Model-View-Controller):
+
     Model
     Deskripsi: Model adalah komponen yang bertanggung jawab untuk mengelola data dan logika bisnis dalam aplikasi. Ini mencakup struktur data, operasi pada data, validasi, dan perubahan data.
     Tugas: Model menghadirkan data kepada Controller, dan jika data berubah, Model memberi tahu Controller.
+
     View
     Deskripsi: View adalah antarmuka pengguna yang digunakan oleh pengguna untuk berinteraksi dengan aplikasi. Ini mencakup semua elemen tampilan seperti tombol, formulir, teks, dan tampilan lainnya.
     Tugas: View menampilkan informasi dari Model kepada pengguna dan mengirim masukan pengguna ke Controller saat interaksi terjadi.
+    
     Controller
     Deskripsi: Controller bertanggung jawab untuk mengontrol alur aplikasi. Ini menerima masukan dari pengguna melalui View, memprosesnya, dan mengkoordinasikan tindakan yang sesuai dengan Model.
-    Tugas: Controller mengambil tindakan berdasarkan masukan pengguna, memperbarui Model jika diperlukan, dan mengatur tampilan yang akan ditampilkan oleh View.
+    Tugas: Controller mengambil tindakan berdasarkan masukan pengguna, memperbarui Model jika diperlukan, dan mengatur tampilan yang akan ditampilkan oleh 
+    
+    View.
+    
     Perbedaan utama MVC:
     MVC adalah pola desain arsitektur perangkat lunak yang memisahkan tanggung jawab antara Model, View, dan Controller.
     Memungkinkan pengembangan dan pemeliharaan aplikasi yang lebih mudah dan terstruktur dengan memisahkan logika bisnis, tampilan, dan kontrol.
+    
     MVT (Model-View-Template):
+    
     Model
     Deskripsi: Mirip dengan Model dalam MVC, Model dalam MVT adalah komponen yang mengelola data dan logika bisnis aplikasi.
     Tugas: Model mengelola data dan operasi pada data, serta menyediakan data untuk Template.
+    
     View
     Deskripsi: View dalam MVT mirip dengan View dalam MVC. Ini adalah komponen yang bertanggung jawab untuk menampilkan data kepada pengguna.
     Tugas: View menampilkan data yang diberikan oleh Model dan berinteraksi dengan Template.
+    
     Template
     Deskripsi: Template adalah komponen yang unik untuk MVT. Ini adalah bagian dari sistem templating yang mengatur tampilan halaman web. Template berisi kode HTML dengan placeholder untuk data yang akan ditampilkan.
     Tugas: Template mengambil data dari View dan menghasilkan halaman HTML yang akan ditampilkan kepada pengguna.
+    
     Perbedaan utama MVT
     MVT adalah konsep yang digunakan dalam kerangka kerja Django, yang sering digunakan untuk pengembangan web.
     MVT menggabungkan Model, View, dan Template untuk menghasilkan halaman web dinamis.
+    
     MVVM (Model-View-ViewModel):
+    
     Model
     Deskripsi: Seperti dalam MVC dan MVT, Model adalah komponen yang mengelola data dan logika bisnis aplikasi.
     Tugas: Model mengelola data dan berkomunikasi dengan ViewModel saat data berubah.
+    
     View
     Deskripsi: View adalah antarmuka pengguna yang digunakan oleh pengguna. Ini hanya menangani tampilan dan interaksi pengguna.
     Tugas: View menampilkan data yang diberikan oleh ViewModel dan mengirim perubahan yang diberikan oleh pengguna ke ViewModel.
+    
     ViewModel
     Deskripsi: ViewModel adalah perantara antara Model dan View. Ini mengelola presentasi data yang akan ditampilkan di View dan berfungsi untuk memisahkan logika tampilan dari Model.
+    
     Tugas: ViewModel mengambil data dari Model, memformatnya agar sesuai untuk ditampilkan di View, dan menerima masukan pengguna untuk kemudian diteruskan ke Model.
+    
     Perbedaan utama MVVM:
     MVVM adalah pola desain arsitektur yang dirancang khusus untuk aplikasi berbasis antarmuka pengguna kompleks, seperti aplikasi mobile dan aplikasi desktop.
     Memungkinkan pengembang untuk memisahkan logika tampilan (View) dari Model, sehingga memudahkan pengujian dan pemeliharaan kode.
