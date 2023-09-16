@@ -82,7 +82,7 @@ Repo ini berisi tugas untuk mata kuliah Pemrograman Berbasis Platform 2023/2024
 
 **B. Buatlah bagan yang berisi request client ke web aplikasi berbasis Django beserta responnya dan jelaskan pada bagan tersebut kaitan antara urls.py, views.py, models.py, dan berkas html.**
 
-![Alt text](diagram.jpg)
+![Alt text](diagram/0001.jpg)
 urls.py di direktori projek akan menghandle urls yang valid pada projek tersebut. 
 
 views.py akan mendefinisikan fungsi menampilkan halaman html sebagai sebuah response. Dan mempass context ke template html kita
