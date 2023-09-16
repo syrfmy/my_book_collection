@@ -5,12 +5,10 @@ from main.models import Product
 from django.urls import reverse
 
 def show_main(request):
-    products = Product.objects.all()
     context = {
         'name': 'Muh. Syarief Mulyadi',
         'class': 'PBP E',
-        'products': products,
-
+        'products': Product.objects.all(),
     }
 
     return render(request, "main.html", context)
