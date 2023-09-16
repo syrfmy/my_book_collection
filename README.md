@@ -3,11 +3,15 @@
 
 author: Muh. Syarief Mulyadi
 
-## Short Intro:
-
 Repo ini berisi tugas untuk mata kuliah Pemrograman Berbasis Platform 2023/2024
 
-## Tugas 1
+# Table Of Content:
+1. [Tugas 2](#tugas-2)
+2. [Tugas 3](#tugas-3)
+3. [Tugas 4](#tugas-4)
+4. [Tugas 5](#tugas-5)
+
+## Tugas 2
 
 **A. Jelaskan bagaimana cara kamu mengimplementasikan checklist di atas secara step-by-step (bukan hanya sekadar mengikuti tutorial).**
 
@@ -169,3 +173,11 @@ Tugas: ViewModel mengambil data dari Model, memformatnya agar sesuai untuk ditam
 _Perbedaan utama MVVM_:
 
 MVVM adalah pola desain arsitektur yang dirancang khusus untuk aplikasi berbasis antarmuka pengguna kompleks, seperti aplikasi mobile dan aplikasi desktop. Memungkinkan pengembang untuk memisahkan logika tampilan (View) dari Model, sehingga memudahkan pengujian dan pemeliharaan kode.
+
+## Tugas 3
+
+
+
+## Tugas 4
+
+## Tugas 5
