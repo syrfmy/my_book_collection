@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Shopping List Page</h1>
+<h1>My Book Collection</h1>
 
 <h5>Name:</h5>
 <p>{{name}}</p>
@@ -13,8 +13,10 @@
 <table>
     <tr>
         <th>Name</th>
+        <th>Author</th>
         <th>Amount</th>
         <th>Description</th>
+        <th>Reading Progress</th>
         <th>Date Added</th>
     </tr>
 
@@ -23,8 +25,10 @@
     {% for product in products %}
         <tr>
             <td>{{product.name}}</td>
+            <td>{{product.author}}</td>
             <td>{{product.amount}}</td>
             <td>{{product.description}}</td>
+            <td>{{product.progress}}</td>
             <td>{{product.date_added}}</td>
         </tr>
     {% endfor %}
