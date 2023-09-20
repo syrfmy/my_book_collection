@@ -176,7 +176,237 @@ MVVM adalah pola desain arsitektur yang dirancang khusus untuk aplikasi berbasis
 
 ## Tugas 3
 
+### Apa perbedaan antara form POST dan form GET dalam Django?
 
+Dalam Django form POST dan GET adalah dua method HTTP request yang disupport. Perbedaan utama antara POST dan GET terletak pada caranya menghandle form request. Untuk POST, Browser menggabungkan data form, mengkodekannya untuk transmisi, mengirimkannya ke server, dan kemudian menerima kembali responsnya. Sedangkan untuk GET, sebaliknya, menggabungkan data yang dikirimkan ke dalam string, dan menggunakannya untuk menulis URL. URL berisi alamat tempat data harus dikirim, serta key dan value data.
+
+Akibat properti ini, POST cocok digunakan untuk form yang bersifat sensitif seperti form login, sedangkan GET lebih cocok untuk form yang tidak sensitif seperti _search bar_
+
+### Apa perbedaan utama antara XML, JSON, dan HTML dalam konteks pengiriman data?
+
+XML sering digunakan dalam situasi di mana data perlu memiliki struktur yang baik, dapat menjelaskan dirinya sendiri, dan mudah dibaca oleh manusia. Ini umumnya digunakan dalam berkas konfigurasi, format pertukaran data seperti RSS dan Atom, dan sebagai dasar untuk bahasa markup lainnya.
+
+JSON banyak digunakan untuk pertukaran data dalam API web, berkas konfigurasi, dan sebagai format penyimpanan data. Ini disukai karena kesederhanaan dan kemudahannya dalam aplikasi JavaScript.
+
+HTML digunakan untuk membuat halaman web dan mendefinisikan struktur, konten, dan presentasinya. Biasanya tidak digunakan untuk pertukaran data, meskipun dapat mengangkut data dalam form web.
+
+### Mengapa JSON sering digunakan dalam pertukaran data antara aplikasi web modern?
+
+JSON banyak digunakan dalam pertukaran data dalam aplikasi web modern karena hal-hal berikut:
+1. Dibanding XML dan HTML, JSON memiliki format yang lebih ringan. Hal ini membuat beban data yang harus di transfer menjadi lebih kecil sehingga data dapat di transfer lebih cepat.
+2. JSON yang merupakan kepanjangan dari Javascript Object Notation, memiliki format yang sama dengan Object model Javascript, hal ini membuat manipulasi data dari JSON cukup mudah. Dan ditambah dengan penggunaan Javascript di berbagai macam web app membuatnya mudah untuk di tangani.
+
+### Langkah-langkah mengerjakan checkpoint
+
+**1. Mengubah model sesuai dengan kebutuhan.**
+
+Untuk tugas 3 saya akan menambahkan beberapa atribut baru untuk model saya. Atribut yang saya tambahkan adalah sebagai berikut:
+    
+1. author : Penulis atau pengarang dari buku
+2. progress : Berapa persen bagian dari buku yang telah saya baca
+3. description : Synopsis dari buku
+
+jadi, sekarang model Product saya akan menjadi seperti berikut:
+
+    '''
+
+    class Product(models.Model):
+        name = models.CharField(max_length=255, default="", blank=True)
+        author = models.CharField(max_length=255, default="", blank=True)
+        date_added = models.DateField(auto_now_add=True)
+        progress = models.CharField(max_length=255, default="",blank=True)
+        amount = models.IntegerField(default="", blank=True)
+        description = models.TextField(default="", blank=True)
+    
+    '''
+
+**2. Membuat input form untuk menambahkan objek model pada aplikasi**
+
+Untuk membuat input form pertama-tama saya membuat file baru yang bernama direktori main bernama _forms.py_. File ini akan menghandle form untuk aplikasi kita. Selanjutnya saya akan membuat file html baru di folder templates di direktori main  yang bernama _create_product.html_. File ini akan berisi template halaman untuk menambahkan product.Selanjutnya saya menambahkan fungsi tambahan bernama create_product di file _views.py_ serta menambahkan urlpattern dari halaman untuk menambahkan product tersebut di file _urls.py_. Fungsi ini akan bertugas menampilkan halaman untuk menambahkan product ke database.
+
+ berikut code dari fungsi create_product dan urlpattern halamannya:
+    
+    '''
+
+        def create_product(request):
+            form = ProductForm(request.POST or None)
+
+            if form.is_valid() and request.method == "POST":
+                form.save()
+                return HttpResponseRedirect(reverse('main:show_main'))
+
+            context = {'form': form}
+            return render(request, "create_product.html", context)
+
+    '''
+
+        path('create-product', create_product, name='create_product'),
+
+    '''
+
+**3. Memodifikasi template lain untuk menampilkan product dan tombol untuk menambahkan product.**
+
+Untuk menampilkan list product sebagai sebuah table saya akan membuat file html tambahan bernama  _book_table.html_ yang berisi bentuk komponen html dari table tersebut. Kemudian saya tinggal menambahkan komponen tersebut ke template html lain di mana table tersebut akan ditampilkan menggunakan keyword include. Selain itu, saya juga akan menambahkan tombol untuk menambahkan product ke halaman main. Tombol ini akan memiliki tautan yang terhubung dengan halaman create_product.
+
+berikut kode dari file _book_table.html_:
+
+'''
+
+    <p>Number of book entry in my collection: {{products|length}}</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Author</th>
+            <th>Amount</th>
+            <th>Description</th>
+            <th>Reading Progress</th>
+            <th>Date Added</th>
+        </tr>
+
+        {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+        {% for product in products %}
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.author}}</td>
+                <td>{{product.amount}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.progress}}</td>
+                <td>{{product.date_added}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+'''
+
+Berikut tampilan file _main.html_ dimana komponen tersebut akan ditampilkan:
+
+'''
+
+    {% extends 'base.html' %}
+
+    {% block content %}
+    <h1>My Book Collection</h1>
+
+    <h2>Name:</h2>
+    <p>{{name}}</p>
+
+    <h2>Class:</h2>
+    <p>{{class}}</p>
+
+    ...
+
+    {% include 'book_table.html' %}
+
+    <br />
+
+    <a href="{% url 'main:create_product' %}">
+        <button>
+            Add New Product
+        </button>
+    </a>
+
+    {% endblock content %}
+
+'''
+
+**4. Menambahkan 5 fungsi dalam format HTML, XML, JSON, XML by ID, dan JSON by ID**
+
+Selanjutnya kita akan menambahkan fungsi untuk mengakses inventory dalam berbagai format dan method. Untuk fungsinya tidak beda dari yang diajarkan di tutorial. Untuk fungsi yang menampilkan HTML sendiri saya membuat file baru di folder templates direktori main. Yang mana file html ini bernama _show_book.html_. File ini yang akan ditampilkan pada pemanggilan fungsi show_book.
+
+Berikut fungsi-fungsi yang ditambahkan di file views:
+
+'''
+    
+    def show_book(request):
+        context = {
+            'products':Product.objects.all()
+        }
+        return render(request, "show_book.html", context)
+
+    def show_xml(request):
+        data = Product.objects.all()
+        return HttpResponse(serializers.serialize("xml", data), content_type= "application/xml")
+
+    def show_json(request):
+        data = Product.objects.all()
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+    def show_xml_by_id(request, id):
+        data = Product.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("xml", data), content_type="application/xml")
+
+    def show_json_by_id(request, id):
+        data = Product.objects.filter(pk=id)
+        return HttpResponse(serializers.serialize("json", data), content_type="application/json")
+
+'''
+
+Berikut isi file dari _show_book.html_:
+
+'''
+
+    {% extends 'base.html' %}
+
+    {% block content %}
+
+        {% include 'book_table.html' %}
+        
+    {% endblock %}
+
+'''
+
+**5. Melakukan routing url untuk berbagai fungsi yang telah ditambahkan dan menggunakan post man untuk mengakses url tersebut.**
+
+Kelima fungsi tersebut akan ditambahkan ke urlpattern di file _urls.py_ dan mengaksesnya menggunakan Postman
+
+Berikut url tambahan di urlpattern:
+
+'''
+
+    path('show_book', show_book, name='show_book'),
+    path('xml/', show_xml, name='show_xml'),
+    path('json/', show_json, name='show_json'),
+    path('xml/<int:id>/', show_xml_by_id, name='show_xml_by_id'),
+    path('json/<int:id>/', show_json_by_id, name='show_json_by_id'), 
+
+'''
+
+Berikut tampilan pengaksesan url tersebut menggunakan postman:
+
+_show_book_
+
+![Alt text](diagram/0002.png)
+
+_XML_
+
+![Alt text](diagram/0003.png)
+
+_JSON_
+
+![Alt text](diagram/0004.png)
+
+_XML by ID_
+
+![Alt text](diagram/0005.png)
+
+_JSON by ID_
+
+![Alt text](diagram/0006.png)
+
+**6. Menambahkan indikator jumlah entry yang terdapat di dalam database.**
+
+Untuk menambahkan indikator yang memperlihatkan berapa banyak product dalam hal ini buku yang terdapat di dalam database, Saya akan menambahkan satu line tambahan untuk di file _book_table.html_. Code ini akan berfungsi memperlihatkan berapa banyak entry yang terdapat di dalam database.
+
+Berikut codenya:
+
+'''
+
+    <p>Number of book entry in my collection: {{products|length}}</p>
+
+'''
+
+{{products|length}} akan menampilkan berapa banyak entry yang terdapat di dalam database kita.
 
 ## Tugas 4
 

@@ -1,0 +1,24 @@
+<p>Number of book entry in my collection: {{products|length}}</p>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Author</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Reading Progress</th>
+        <th>Date Added</th>
+    </tr>
+
+    {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
+
+    {% for product in products %}
+        <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.author}}</td>
+            <td>{{product.amount}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.progress}}</td>
+            <td>{{product.date_added}}</td>
+        </tr>
+    {% endfor %}
+</table>
