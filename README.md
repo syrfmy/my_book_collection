@@ -747,7 +747,7 @@ Untuk kita akan menambahkan nilai baru di dalam context fungsi show_main.
 
 Selanjutnya kita akan menampilkan isi context tersebut di halaman main dengan menambahkan kode html berikut di dalam template main.html
     '''
-    "<h5>Sesi terakhir login: {{ last_login }}</h5>"
+    <h5>Sesi terakhir login: {{ last_login }}</h5>
     '''
 
 ## Tugas 5
