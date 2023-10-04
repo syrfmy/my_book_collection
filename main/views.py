@@ -91,48 +91,25 @@ def logout_user(request):
     response.delete_cookie('last_login')
     return response
      
+def edit_product(request, id):
+    # Get product berdasarkan ID
+    product = Product.objects.get(pk = id)
 
-def change_amount(request):
-    products = Product.objects.filter(user=request.user)
-    context = {
-        'name': request.user.username,
-        'class': 'PBP E',
-        'products': products,
-        'last_login': request.COOKIES['last_login'],
-    }
+    # Set product sebagai instance dari form
+    form = ProductForm(request.POST or None, instance=product)
 
-    return render(request, "change_amount.html", context)
+    if form.is_valid() and request.method == "POST":
+        # Simpan form dan kembali ke halaman awal
+        form.save()
+        return HttpResponseRedirect(reverse('main:show_main'))
 
-def add_stock(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-    
-    if request.method == 'POST':
-        form = AddStockForm(request.POST)
-        if form.is_valid():
-            quantity = form.cleaned_data['quantity']
-            product.stock += quantity
-            product.save()
-            return redirect('product_detail', product_id=product.id)
-    else:
-        form = AddStockForm()
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
 
-    return render(request, 'add_stock.html', {'product': product, 'form': form})
-
-def reduce_stock(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-
-    if request.method == 'POST':
-        if product.stock > 0:
-            product.stock -= 1
-            product.save()
-        return redirect('product_detail', product_id=product.id)
-
-def delete_product(request, product_id):
-    product = get_object_or_404(Product, pk=product_id)
-
-    if request.method == 'POST':
-        product.delete()
-        return redirect('product_list')  # Ganti dengan URL yang sesuai
-
-    form = DeleteProductForm()
-    return render(request, 'delete_product.html', {'product': product, 'form': form})
+def delete_product(request, id):
+    # Get data berdasarkan ID
+    product = Product.objects.get(pk = id)
+    # Hapus data
+    product.delete()
+    # Kembali ke halaman awal
+    return HttpResponseRedirect(reverse('main:show_main'))

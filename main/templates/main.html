@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>My Book Collection</h1>
 
-<h2>Name:</h2>
-<p>{{name}}</p>
-
-<h2>Class:</h2>
-<p>{{class}}</p>
-
-...
-
-{% include 'book_table.html' %}
-
-<br />
-
-<h5>Sesi terakhir login: {{ last_login }}</h5>
-
-<br />
-
-<a href="{% url 'main:create_product' %}">
-    <button>
-        Add New Product
-    </button>
-</a>
-
-<a href="{% url 'main:change_amount' %}">
-    <button>
-        Change Amount
-    </button>
-</a>
-
-<a href="{% url 'main:logout' %}">
-    <button>
-        Logout
-    </button>
-</a>
+<div>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Welcome {{name}}</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:create_product' %}">Create New Product</a>
+                  </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
+                    </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+</div>
+<divx class="container">
+    <div class="row">
+        <p class="text-left">Number of book entry in your collection: {{products|length}}</p>
+    </div>
+    <div class="row">
+        <div class="d-flex">
+            {% include 'book_table.html' %}
+        </div>
+    </div>
+    <div class="row">
+        <h6>Sesi terakhir login: {{ last_login }}</h6>
+    </div>
+    
+   
+   
+</div>
 
 {% endblock content %}

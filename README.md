@@ -751,3 +751,246 @@ Selanjutnya kita akan menampilkan isi context tersebut di halaman main dengan me
     '''
 
 ## Tugas 5
+
+### Jelaskan manfaat dari setiap element selector dan kapan waktu yang tepat untuk menggunakannya.
+
+**1. Universal Selector**
+Digunakan untuk memilih semua elemen di halaman web. Biasanya digunakan untuk reset CSS global atau styling dasar
+
+**2. Type Selector**
+Digunakan untuk memilih semua elemen dengan jenis elemen tertentu (tag), seperti <p>, <h1>, <a>. Digunanakan ketika kita ingin menggaya semua elemen dengan jenis yang sama secara konsisten di seluruh situs web.
+
+**3. Class Selector**
+Digunakan untuk memilih elemen berdasarkan kelas tertentu yang diberikan. Digunanakan ketika kita ingin menggaya elemen yang memiliki kelas yang sama atau serupa, tetapi tidak semua elemen dengan jenis yang sama.
+
+**4. ID Selector**
+Digunakan untuk memilih elemen berdasarkan ID unik. Digunanakan ketika kita ingin menggaya elemen yang memiliki ID unik.
+
+**5. Attribute Selector**
+Digunakan untuk memilih elemen berdasarkan berdasarkan atribut tertentu, seperti href, src, atau atribut kustom. Digunanakan ketika kita ingin menggaya elemen berdasarkan atribut tertentu, seperti href, src, atau atribut kustom.
+
+**6. Pseudo-class Selector**
+Digunakan untuk memilih elemen berdasarkan berdasarkan keadaan atau interaksi pengguna, seperti :hover, :focus, atau :nth-child(). Digunanakan ketika kita ingin berdasarkan keadaan atau interaksi pengguna, seperti :hover, :focus, atau :nth-child().
+
+### Jelaskan HTML5 Tag yang kamu ketahui.
+
+**1. div**
+div adalah wadah generik yang digunakan untuk mengelompokkan dan menggaya elemen-elemen. Ini sering digunakan untuk tujuan tata letak dan untuk menerapkan gaya CSS pada bagian-bagian tertentu dari halaman web.
+
+**2. a (anchor)**
+Tag anchor digunakan untuk membuat hyperlink. Ini memungkinkan pengguna untuk menavigasi ke halaman web atau sumber daya lainnya dengan mengklik teks atau gambar yang dihubungkan.
+
+**3. img**
+Tag img digunakan untuk menanamkan gambar dalam halaman web. Ini memerlukan atribut src untuk menentukan sumber gambar (URL) dan atribut alt untuk tujuan aksesibilitas.
+
+**4. ul dan li**
+Tag ul (unordered list) dan li (list item) digunakan untuk membuat daftar tak terurut. ul berisi daftar elemen li, yang mewakili item daftar individu.
+
+**5. input**
+Tag input digunakan untuk membuat berbagai jenis input form, seperti kotak teks, kotak centang (checkbox), tombol radio (radio button), dan lain-lain. Ini merupakan elemen dasar untuk mengumpulkan masukan dari pengguna.
+
+### Jelaskan perbedaan antara margin dan padding.
+
+Margin adalah ruang di luar elemen yang mengendalikan jarak antara elemen dengan elemen lainnya.
+Padding adalah ruang di dalam elemen yang mengendalikan jarak antara konten elemen dengan batas elemen itu sendiri.
+
+### Jelaskan perbedaan antara framework CSS Tailwind dan Bootstrap. Kapan sebaiknya kita menggunakan Bootstrap daripada Tailwind, dan sebaliknya?
+
+Tailwind CSS Lebih fokus pada fleksibilitas dan kustomisasi tinggi dengan menggunakan banyak kelas kecil untuk membangun tampilan sesuai kebutuhan. Berikut kapan sebaiknya kita menggunakan Tailwind CSS:
+1. Lebih cocok jika Anda ingin tingkat kustomisasi yang tinggi dan tampilan yang unik.
+2. Bagus jika Anda ingin menghindari gaya bawaan yang mungkin tidak sesuai dengan desain Anda.
+3. Berguna jika Anda ingin menghasilkan berkas CSS yang lebih kecil dan efisien.
+4. Cocok untuk pengembang yang ingin lebih kontrol terhadap tampilan tanpa harus menulis CSS khusus.
+
+Bootstrap Lebih berfokus pada komponen siap pakai dengan desain bawaan yang lebih kuat. Berikut kapan sebaiknya kita menggunakan bootstrap:
+1. Cocok jika Anda ingin cepat membangun prototipe atau proyek dengan desain bawaan yang sudah jadi.
+2. Bagus jika Anda tidak memiliki banyak waktu untuk menyesuaikan tampilan secara mendalam.
+3. Berguna jika Anda ingin bekerja dengan tim yang sudah terbiasa dengan Bootstrap.
+
+### Langkah-langkah pengerjaan checkpoint
+
+**1. Pertama memberikan tampilan atas di setiap halaman aplikasi main.**
+
+Hal ini di capai dengan menambahkan tambahan kode di halaman base.html
+    
+        <div class="d-flex row m-2">
+            <div class="d-flex col p-2">
+                <h1>My Book Collection</h1>
+            </div>
+            <div class="d-flex justify-content-end col p-2 ">
+                <ul>
+                    <li>Nama : Muh Syarief Mulyadi</li>
+                    <li>NPM  : 2206031353         </li>
+                    <li>Kelas: E                  </li>
+                </ul>
+            </div>
+        </div>
+    
+
+**2. Memberikan tampilan baru untuk halaman login.**
+
+Untuk memberikan tampilan baru saya memperbaiki layout serta memberikan floating labels pada field input username dan password. Untuk mengatur layoutnya saya menggunakan container bootstrap.
+
+    
+    
+    <div class="d-flex align-items-center my-auto p-5 ">
+        <div class="container">
+            <div class="row-cols-1 ">
+                <div class="col">
+                    <h1>Login</h1>
+                </div>
+            </div>
+            <div class="row-gap-4 ">
+                <div class="col">
+                    <form action="" method="POST" >
+                        {% csrf_token %}  
+                        <div class = "container">
+                            <div class="row">
+                                <div class="col" >
+                                    <div class="form-floating my-2">
+                                        <input type="text" class="form-control border-black" name="username" placeholder="Username">
+                                        <label for="floatingInput">Username</label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating  my-2 ">
+                                        <input type="password" class="form-control border-black " name="password" placeholder="Password">
+                                        <label for="floatingInput">Password</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <input class="btn login_btn border-black my-2  " type="submit" value="Login">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                        {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                                <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}     
+                        
+                    Don't have an account yet? <a href="{% url 'main:register' %}">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+**3. Memberikan navbar pada halaman main dan mengubah item yang ditampilkan dari table menjadi card.**
+
+Untuk membuat tampilan jumlah entry yakni buku lebih baik saya menggunakan group-card class dari bootstrap dimana.
+
+berikut implementasinya:
+
+
+    <div class="container">
+    <div class="row">
+        <div class="card-group flex-wrap">
+            {% for product in products %}
+                <div class="card text-center mb-3" style="width: 18rem;">
+                    <img src="https://placehold.co/200x200" class="card-img-top " alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">By {{product.author}}</p>
+                        <h6 class="card-text">Synopsis</h6>
+                        <p class="card-text">{{product.description}}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text">Amount: {{product.amount}}</div>
+                            <a href="{% url 'main:edit_product' product.pk %}">
+                                <button>
+                                    Edit
+                                </button>
+                            </a>
+                            <a href="{% url 'main:delete_product' product.pk %}">
+                                <button>
+                                    Delete
+                                </button>
+                            </a>
+                        </li>
+                    <div class="card-footer text-body-secondary">
+                        Added : {{product.date_added}}
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+        
+    </div>
+
+**4. Selanjutnya menambahkan fungsi edit product dan delete product**
+
+Untuk menambahkan fungsi edit kita membuat file html baru dulu untuk menampilkan halaman edit.
+
+    {% extends 'base.html' %}
+
+    {% load static %}
+
+    {% block content %}
+
+    <h1>Edit Product</h1>
+
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Edit Product"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    {% endblock %}
+
+Selanjutnya kita tinggal mengaitkan membuat fungsi delete dan fungsi edit_product di views.py dan mengaikan urlnya:
+
+    def edit_product(request, id):
+        # Get product berdasarkan ID
+        product = Product.objects.get(pk = id)
+
+        # Set product sebagai instance dari form
+        form = ProductForm(request.POST or None, instance=product)
+
+        if form.is_valid() and request.method == "POST":
+            # Simpan form dan kembali ke halaman awal
+            form.save()
+            return HttpResponseRedirect(reverse('main:show_main'))
+
+        context = {'form': form}
+        return render(request, "edit_product.html", context)
+
+    def delete_product(request, id):
+        # Get data berdasarkan ID
+        product = Product.objects.get(pk = id)
+        # Hapus data
+        product.delete()
+        # Kembali ke halaman awal
+        return HttpResponseRedirect(reverse('main:show_main'))
+
+
+
+
+
+
+
+    
+
+
+
+
