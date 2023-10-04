@@ -758,7 +758,7 @@ Selanjutnya kita akan menampilkan isi context tersebut di halaman main dengan me
 Digunakan untuk memilih semua elemen di halaman web. Biasanya digunakan untuk reset CSS global atau styling dasar
 
 **2. Type Selector**
-Digunakan untuk memilih semua elemen dengan jenis elemen tertentu (tag), seperti <p>, <h1>, <a>. Digunanakan ketika kita ingin menggaya semua elemen dengan jenis yang sama secara konsisten di seluruh situs web.
+Digunakan untuk memilih semua elemen dengan jenis elemen tertentu (tag), seperti p, h1, a. Digunanakan ketika kita ingin menggaya semua elemen dengan jenis yang sama secara konsisten di seluruh situs web.
 
 **3. Class Selector**
 Digunakan untuk memilih elemen berdasarkan kelas tertentu yang diberikan. Digunanakan ketika kita ingin menggaya elemen yang memiliki kelas yang sama atau serupa, tetapi tidak semua elemen dengan jenis yang sama.
