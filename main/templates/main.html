@@ -2,6 +2,47 @@
 
 {% block content %}
 
+<div id="modal_form">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <form id="form" onsubmit="return false;">
+                      {% csrf_token %}
+                      <div class="mb-3">
+                          <label for="name" class="col-form-label">Name:</label>
+                          <input type="text" class="form-control" id="name" name="name"></input>
+                      </div>
+                      <div class="mb-3">
+                          <label for="author" class="col-form-label">Author:</label>
+                          <input type="text" class="form-control" id="author" name="author"></input>
+                      </div>
+                      <div class="mb-3">
+                        <label for="status" class="col-form-label">Status:</label>
+                        <input type="text" class="form-control" id="status" name="status"></input>
+                    </div>
+                    <div class="mb-3">
+                      <label for="amount" class="col-form-label">Amount:</label>
+                      <input type="number" class="form-control" id="amount" name="amount"></input>
+                  </div>
+                      <div class="mb-3">
+                          <label for="description" class="col-form-label">Description:</label>
+                          <textarea class="form-control" id="description" name="description"></textarea>
+                      </div>
+                  </form>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
 <div>
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
@@ -12,8 +53,8 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'main:create_product' %}">Create New Product</a>
-                  </li>
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'main:logout' %}">Logout</a>
                     </li>
@@ -28,15 +69,82 @@
     </div>
     <div class="row">
         <div class="d-flex">
-            {% include 'book_table.html' %}
+          <div class="container">
+              <div class="row" id="card_container"></div>
+          </div>
         </div>
     </div>
     <div class="row">
         <h6>Sesi terakhir login: {{ last_login }}</h6>
     </div>
-    
-   
-   
 </div>
+
+<script>
+  const editProductUrl = "{% url 'main:edit_product' 0 %}";
+  const deleteProductUrl = "{% url 'main:delete_product' 0 %}"; 
+
+  async function getProducts() {
+      return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+  }
+
+  async function refreshProducts() {
+      document.getElementById("card_container").innerHTML = ""
+      const products = await getProducts()
+      let htmlString = ``
+
+      products.forEach((item) => {
+          const product_id= item.pk;
+          htmlString += `\n
+          <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4">
+              <div class="card text-center mb-3 h-100" data-pk="${item.pk}">
+                  <img src="https://placehold.co/200x200" class="card-img-top " alt="...">
+                  <div class="card-body">
+                      <h5 class="card-title">${item.fields.name}</h5>
+                      <p class="card-text">By ${item.fields.author}</p>
+                      <h6 class="card-text">Synopsis</h6>
+                      <p class="card-text">${item.fields.description}</p>
+                  </div>
+                  <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                          <div class="card-text">Amount: ${item.fields.amount}</div>
+                          <a href="${editProductUrl.replace('0', product_id)}">
+                              <button>
+                                  Edit
+                              </button>
+                          </a>
+                          <a href="${deleteProductUrl.replace('0', product_id)}">
+                              <button>
+                                  Delete
+                              </button>
+                          </a>
+                      </li>
+                  <div class="card-footer text-body-secondary">
+                      Added :${item.fields.date_added}
+                  </div>
+              </div>
+          </div>` 
+      })
+      
+      document.getElementById("card_container").innerHTML = htmlString
+  }
+
+  refreshProducts()
+
+  function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addProduct
+
+
+</script>
+
+
 
 {% endblock content %}

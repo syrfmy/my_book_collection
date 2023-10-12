@@ -10,6 +10,7 @@ Repo ini berisi tugas untuk mata kuliah Pemrograman Berbasis Platform 2023/2024
 2. [Tugas 3](#tugas-3)
 3. [Tugas 4](#tugas-4)
 4. [Tugas 5](#tugas-5)
+5. [Tugas 6](#tugas-6)
 
 ## Tugas 2
 
@@ -985,8 +986,181 @@ Selanjutnya kita tinggal mengaitkan membuat fungsi delete dan fungsi edit_produc
 
 
 
+## Tugas 6
+### Jelaskan perbedaan antara asynchronous programming dengan synchronous programming
+
+Asynchronous programming dengan synchronous programming berbeda di aspek blocking-nya. Untuk program yang synchronus dia akan menunda intruksi lainnya hingga suatu intruksi telah berhasil di eksekusi. Untuk program Asynchronous suatu intruksi dapat berjalan tanpa menunggu selesainya suatu intruksi lain. 
+
+### Dalam penerapan JavaScript dan AJAX, terdapat penerapan paradigma event-driven programming. Jelaskan maksud dari paradigma tersebut dan sebutkan salah satu contoh penerapannya pada tugas ini
+
+Paradimga event-driven programming adalah paradigma dimana alur eksekusi program tidak ditentukan oleh urutan instruksi, tetapi lebih banyak ditentukan oleh kejadian (events) yang terjadi dalam sistem atau program. Pada dasarnya, program event-driven merespons peristiwa atau kejadian tertentu yang terjadi dalam lingkungan program, seperti input pengguna, sinyal eksternal, atau tindakan lainnya. Untuk Contoh di tugas ini dapat kita lihat di penambahan product ke database menggunakan modal form. Tombol add product di modal form akan menunggu dirinya di klik baru lah dia akan mengeksekusi fungsi yang akan menambahkan item ke dalam database.
+
+### Jelaskan penerapan asynchronous programming pada AJAX
+
+Penerapan asynchronous programming terletak pada penggunakan fungsi fetch(). Fungsi fetch bersifat asinkronus dimana dia tidak akan memblock eksekusi program lain. Hal ini hanya terjadi ketika block fungsi tempat fungsi fetch() tersebut didefinisikan sebagai async. 
+
+### Pada PBP kali ini, penerapan AJAX dilakukan dengan menggunakan Fetch API daripada library jQuery. Bandingkanlah kedua teknologi tersebut dan tuliskan pendapat kamu teknologi manakah yang lebih baik untuk digunakan
+
+Untuk masalah teknologi mana yang lebih baik digunakan, Fetch API lebih baik dibanding jQuery. Hal ini dikarenakan penggunakan Fetch API yang berbasis promise bersifat lebih mudah untuk di mantain, dibandingkan callback.
+
+### Langkah-langkah mengerjakan checkpoint
+
+**1. AJAX GET**
+untuk mengubah fungsi menampilkan card yang tersedia menggunakan AJAX GET, pertama-tama saya akan mendefinisikan kontainer yang akan di isi oleh fungsi javascript.
 
 
+    <div class="row" id="card_container"></div>
+
+Container tersebut akan diisi oleh products/buku yang dibuat oleh pengguna. Untuk melakukan hal tersebut kita pertama akan melakukan perintah fetch yang akan memanggil fungsi di views.py yang akan mengembalikan model yang dibuat oleh user dan dikembalikan dalam bentuk json.
+
+     async function getProducts() {
+      return fetch("{% url 'main:get_product_json' %}").then((res) => res.json())
+    }
+
+Selanjutnya kita akan membuat function yang akan memasukkan tiap item tersebut ke dalam container
+
+    async function refreshProducts() {
+        document.getElementById("card_container").innerHTML = ""
+        const products = await getProducts()
+        let htmlString = ``
+
+        products.forEach((item) => {
+            const product_id= item.pk;
+            htmlString += `\n
+            <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12 mb-4">
+                <div class="card text-center mb-3 h-100" data-pk="${item.pk}">
+                    <img src="https://placehold.co/200x200" class="card-img-top " alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.fields.name}</h5>
+                        <p class="card-text">By ${item.fields.author}</p>
+                        <h6 class="card-text">Synopsis</h6>
+                        <p class="card-text">${item.fields.description}</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="card-text">Amount: ${item.fields.amount}</div>
+                            <a href="${editProductUrl.replace('0', product_id)}">
+                                <button>
+                                    Edit
+                                </button>
+                            </a>
+                            <a href="${deleteProductUrl.replace('0', product_id)}">
+                                <button>
+                                    Delete
+                                </button>
+                            </a>
+                        </li>
+                    <div class="card-footer text-body-secondary">
+                        Added :${item.fields.date_added}
+                    </div>
+                </div>
+            </div>` 
+        })
+        
+        document.getElementById("card_container").innerHTML = htmlString
+    }
+
+
+**2. AJAX POST**
+
+Untuk melakukan pendaftaran menggunakan AJAX POST pertama-tama saya menambahkan sebuah modal di main dan menambahkan tombol untuk menampilkan modal tersebut ke dalam navbar
+
+Modal:
+
+    <div id="modal_form">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add New Product</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="form" onsubmit="return false;">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="name" class="col-form-label">Name:</label>
+                            <input type="text" class="form-control" id="name" name="name"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="author" class="col-form-label">Author:</label>
+                            <input type="text" class="form-control" id="author" name="author"></input>
+                        </div>
+                        <div class="mb-3">
+                            <label for="status" class="col-form-label">Status:</label>
+                            <input type="text" class="form-control" id="status" name="status"></input>
+                        </div>
+                        <div class="mb-3">
+                        <label for="amount" class="col-form-label">Amount:</label>
+                        <input type="number" class="form-control" id="amount" name="amount"></input>
+                    </div>
+                        <div class="mb-3">
+                            <label for="description" class="col-form-label">Description:</label>
+                            <textarea class="form-control" id="description" name="description"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="button_add" data-bs-dismiss="modal">Add Product</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+Tombol toggle modul:
+
+    <li class="nav-item">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product by AJAX</button>
+    </li>
+
+Selanjutnya kita membuat fungsi yang akan membuat fecth request POST dengan body-nya merupakan isi form kita dan membuat object item baru
+
+Parse isi form:
+
+    function addProduct() {
+        fetch("{% url 'main:add_product_ajax' %}", {
+            method: "POST",
+            body: new FormData(document.querySelector('#form'))
+        }).then(refreshProducts)
+
+        document.getElementById("form").reset()
+        return false
+    }
+
+    document.getElementById("button_add").onclick = addProduct
+
+Fungsi yang menambahkan item ke database:
+
+    @csrf_exempt
+    def create_ajax(request):
+        if request.method == 'POST':
+            name = request.POST.get("name")
+            author = request.POST.get("author")
+            status = request.POST.get("status")
+            amount = request.POST.get("amount")
+            description = request.POST.get("description")
+            user = request.user
+
+            new_product = Product(name=name, author=author, description=description, status=status, amount=amount,user=user)
+            new_product.save()
+
+            return HttpResponse(b"CREATED", status=201)
+
+        return HttpResponseNotFound()
+
+Selanjutnya kita akan melakukan routing terhadap fungsi tersebut
+
+     path('create-ajax/', create_ajax, name='add_product_ajax'),
+    
+Setelah itu kita perlu melakukan refresh isi dari container_card kita. Hal ini tidak perlu kita lakukan karena di fungsi addProduct() kita sebelumnya, .then(refreshProduct) akan memperbarui container_card kita ketika response dari fetch telah diterima
+
+**3. Collecstatic**
+
+Kita tinggal menjalankan perintah py manage.py collectstatic. Perintah ini akan mengumpulkan semua file static di project kita dan menempatkannya ke folder di root folder bernama static. 
+
+## Tugas 7
 
 
     

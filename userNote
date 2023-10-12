@@ -1,3 +1,55 @@
 user 1
 nama: Dummy
 pass: 1234567qwert
+
+Akun 1
+        Nama: Dummy1
+        Pass: 09876poiuy
+
+        Product 1:{
+            Nama:Kamus Inggris
+            Author:Webster
+            Status:Available
+            Amount:3
+            Description: Kamus lengkap Inggris Indonesia
+        }
+        Product 2:{
+            Nama: Kamus Jepang
+            Author: Suzuki Honda
+            Status: Not Available
+            Amount:0
+            Description: Kamus lengkap Jepang Indonesia
+        }
+        Product 3:{
+            Nama: Kamus Rusia
+            Author: Karl Marx
+            Status: Available
+            Amount: 4
+            Description: Kamus lengkap Rusia Indonesia
+        }
+    
+    Akun 2
+        Nama: Dummy2
+        Pass: randompassgenerator123
+
+        Product 1:{
+            Nama: Fisika Dasar
+            Author:Douglass
+            Status:Available
+            Amount:5
+            Description: Buku acuan Fisika Dasar perkuliahan
+        }
+        Product 2:{
+            Nama: Kalkulus
+            Author: Purcell
+            Status: Not Available
+            Amount:0
+            Description: Buku acuan Kalkulus perkuliahan
+        }
+        Product 3:{
+            Nama: Biologi
+            Author: Campbell
+            Status: Available
+            Amount: 2
+            Description: Buku acuan biologi perkuliahan
+        }
