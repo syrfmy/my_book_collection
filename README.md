@@ -5,6 +5,8 @@ author: Muh. Syarief Mulyadi
 
 Repo ini berisi tugas untuk mata kuliah Pemrograman Berbasis Platform 2023/2024
 
+link Deployment: http://muh-syarief-tugas.pbp.cs.ui.ac.id
+
 # Table Of Content:
 1. [Tugas 2](#tugas-2)
 2. [Tugas 3](#tugas-3)
@@ -1159,6 +1161,11 @@ Setelah itu kita perlu melakukan refresh isi dari container_card kita. Hal ini t
 **3. Collecstatic**
 
 Kita tinggal menjalankan perintah py manage.py collectstatic. Perintah ini akan mengumpulkan semua file static di project kita dan menempatkannya ke folder di root folder bernama static. 
+
+**4. Deploy**
+Selanjutnya kita akan melakukan deploy. Deploy untuk tugas nggak ada bedanya dengan deploy tutorial. Yang berbeda kita akan mengganti nama app kita menjadi muh-syarief-tugas. Dalam pengerjan Deployment ini saya sudah mendapatkan checklist di github saya, tetapi masih belum bisa di akses halamannya untuk itu saya sematkan saja linknya terlebih dahulu:
+
+    http://muh-syarief-tugas.pbp.cs.ui.ac.id
 
 ## Tugas 7
 
