@@ -89,8 +89,13 @@ WSGI_APPLICATION = 'my_book_collection.wsgi.app'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'URL': 'postgresql://postgres:g6C--6FCGCD4F6BBCGBg6gbCFEBg-f6E@monorail.proxy.rlwy.net:44788/railway',
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'g6C--6FCGCD4F6BBCGBg6gbCFEBg-f6E',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': 44788,
     }
 }
 
