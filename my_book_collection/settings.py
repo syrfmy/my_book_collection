@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import firebase_admin
+from firebase_admin import credentials
 from pathlib import Path
 import environ 
 import os 
@@ -86,16 +88,16 @@ WSGI_APPLICATION = 'my_book_collection.wsgi.app'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# Firebase Configuration
+FIREBASE_CONFIG_FILE = 'firebase_config.json'
+cred = credentials.Certificate(FIREBASE_CONFIG_FILE)
+firebase_admin.initialize_app(cred)
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'URL': 'postgresql://postgres:g6C--6FCGCD4F6BBCGBg6gbCFEBg-f6E@monorail.proxy.rlwy.net:44788/railway',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'g6C--6FCGCD4F6BBCGBg6gbCFEBg-f6E',
-        'HOST': 'monorail.proxy.rlwy.net',
-        'PORT': 44788,
+        'ENGINE': 'django_firebase_app.firebase',
+        'CREDENTIALS': cred,
+        'NAME': 'default',
     }
 }
 
