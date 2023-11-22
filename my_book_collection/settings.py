@@ -10,8 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import firebase_admin
-from firebase_admin import credentials
 from pathlib import Path
 import environ 
 import os 
@@ -89,15 +87,12 @@ WSGI_APPLICATION = 'my_book_collection.wsgi.app'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 # Firebase Configuration
-FIREBASE_CONFIG_FILE = 'firebase_config.json'
-cred = credentials.Certificate(FIREBASE_CONFIG_FILE)
-firebase_admin.initialize_app(cred)
+
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django_firebase_app.firebase',
-        'CREDENTIALS': cred,
-        'NAME': 'default',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
@@ -144,8 +139,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_ROOT =os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
